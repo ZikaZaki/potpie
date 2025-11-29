@@ -46,7 +46,7 @@ services:
     container_name: potpie_neo4j
     environment:
       NEO4J_AUTH: neo4j/mysecretpassword
-      NEO4J_PLUGINS: '["apoc"]'
+      NEO4JLABS_PLUGINS: '["apoc"]'
       NEO4J_dbms_security_procedures_unrestricted: "apoc.*"
       NEO4J_dbms_memory_transaction_total_max: "0"
     ports:
@@ -127,10 +127,10 @@ services:
       context: .
       dockerfile: Dockerfile.backend
     container_name: potpie_celery_worker
-    command: >
-      bash -c "celery -A app.celery.celery_app worker 
-      --loglevel=info 
-      -Q $${CELERY_QUEUE_NAME}_process_repository,$${CELERY_QUEUE_NAME}_agent_tasks 
+    command: >-
+      bash -c "celery -A app.celery.celery_app worker
+      --loglevel=info
+      -Q $${CELERY_QUEUE_NAME}_process_repository,$${CELERY_QUEUE_NAME}_agent_tasks
       -E --concurrency=2 --pool=solo"
     env_file:
       - .env.docker
@@ -165,7 +165,7 @@ services:
   frontend:
     build:
       context: ./potpie-ui
-      dockerfile: Dockerfile.dev
+      dockerfile: ../Dockerfile.frontend
     container_name: potpie_frontend
     environment:
       # API URLs (use localhost since browser accesses these directly)

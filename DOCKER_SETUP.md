@@ -36,11 +36,13 @@ OPENAI_API_KEY=sk-your-api-key-here
 ```
 
 **Frontend Configuration:**
-```bash
-cp potpie-ui/.env.docker.example potpie-ui/.env.docker
-```
+The frontend environment is pre-configured in docker-compose.yml for local development - no additional setup needed.
 
-The frontend defaults work for local development - no changes needed.
+**(Optional) Optimize Frontend Build:**
+For faster frontend builds, copy the dockerignore file:
+```bash
+cp frontend.dockerignore potpie-ui/.dockerignore
+```
 
 ### 3. Start All Services
 
