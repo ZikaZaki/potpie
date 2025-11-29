@@ -29,7 +29,7 @@ services:
       POSTGRES_PASSWORD: mysecretpassword
       POSTGRES_DB: momentum
     ports:
-      - "5432:5432"
+      - "5532:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -181,7 +181,7 @@ services:
       # Disable telemetry
       - NEXT_TELEMETRY_DISABLED=1
     ports:
-      - "3000:3000"
+      - "3005:3000"
     volumes:
       # Mount source for hot reload in development
       - ./potpie-ui:/app
