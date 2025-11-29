@@ -201,7 +201,7 @@ docker compose up -d --build frontend
 
 **Prevention:** Always clone with `--recurse-submodules`:
 ```bash
-git clone --recurse-submodules https://github.com/ZikaZaki/potpie.git
+git clone --recurse-submodules <repository-url>
 ```
 
 ### Services Not Starting
