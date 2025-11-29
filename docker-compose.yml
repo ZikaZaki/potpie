@@ -182,11 +182,11 @@ services:
       - NEXT_TELEMETRY_DISABLED=1
     ports:
       - "3005:3000"
-    volumes:
-      # Mount source for hot reload in development
-      - ./potpie-ui:/app
-      - /app/node_modules
-      - /app/.next
+    # volumes:
+    #   # Mount source for hot reload in development
+    #   - ./potpie-ui:/app
+    #   - /app/node_modules
+    #   - /app/.next
     networks:
       - potpie-network
     depends_on:
