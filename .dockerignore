@@ -1,0 +1,83 @@
+# Git
+.git
+.gitignore
+.gitmodules
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.hypothesis/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.cursorrules
+.cursor/
+.claude/
+
+# Environment files (will be passed via docker-compose)
+.env
+.env.*
+!.env.template
+!.env.docker.example
+
+# Service account files
+*.json
+service-account.json
+firebase_service_account.json
+
+# Logs
+*.log
+
+# Local directories
+projects/
+.momentum/
+db/
+cli/
+thoughts/
+worktrees/
+.repos/
+
+# Documentation (not needed for runtime)
+docs/
+*.md
+!README.md
+
+# Tests (optional: include if you want to run tests in container)
+# tests/
+
+# Frontend submodule (built separately)
+potpie-ui/
+
+# Other
+.DS_Store
+*.pem
+certificates/
+.taskmaster/
+.codex/

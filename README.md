@@ -125,6 +125,31 @@ Potpie provides a set of tools that agents can use to interact with the knowledg
 - Git installed (for repository access)
 - Python 3.10.x
 
+### 🐳 Quick Start with Docker (Recommended)
+
+The fastest way to run Potpie is with Docker Compose, which handles all services automatically:
+
+```bash
+# Clone the repository with submodules
+git clone --recurse-submodules https://github.com/ZikaZaki/potpie.git
+cd potpie
+
+# Configure environment
+cp .env.docker.example .env.docker
+# Edit .env.docker and add your LLM API key (e.g., OPENAI_API_KEY)
+
+# Start all services
+docker compose up -d
+
+# Access the application
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:8001
+```
+
+For detailed Docker setup instructions, see [DOCKER_SETUP.md](./DOCKER_SETUP.md).
+
+### Manual Setup (Alternative)
+
 ### Potpie UI
   An easy to use interface to interact with your Agents
   ## Initialize the UI Submodule
