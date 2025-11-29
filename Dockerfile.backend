@@ -1,0 +1,45 @@
+# Potpie Backend Dockerfile for Local Development
+# This Dockerfile is optimized for local development with Docker Compose
+
+FROM python:3.10-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    procps \
+    wget \
+    curl \
+    gnupg2 \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set the working directory
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install additional packages
+RUN pip install --no-cache-dir celery nltk
+
+# Download NLTK data
+RUN python -c "import nltk; nltk.download('punkt'); nltk.download('punkt_tab')"
+
+# Copy application code
+COPY . .
+
+# Create projects directory for repository storage
+RUN mkdir -p /app/projects
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Expose the port for the API
+EXPOSE 8001
+
+# Default command: run database migrations and start the API server
+CMD ["bash", "-c", "alembic upgrade heads && gunicorn --worker-class uvicorn.workers.UvicornWorker --workers 2 --timeout 1800 --bind 0.0.0.0:8001 --log-level info app.main:app"]

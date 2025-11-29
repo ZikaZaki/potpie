@@ -15,8 +15,9 @@ cli/momentum_cli/.momentum
 .hypothesis
 # Ignore all .env.* files
 .env.*
-# Except for .env.template
+# Except for .env.template and .env.docker.example
 !.env.template
+!.env.docker.example
 *.log
 .cursorrules
 projects/
