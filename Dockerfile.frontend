@@ -11,8 +11,8 @@ WORKDIR /app
 # Install pnpm globally
 RUN npm install -g pnpm
 
-# Copy package files
-COPY package.json pnpm-lock.yaml ./
+# Copy package files from potpie-ui subdirectory
+COPY potpie-ui/package.json potpie-ui/pnpm-lock.yaml ./
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
@@ -27,8 +27,8 @@ RUN npm install -g pnpm
 # Copy node_modules from deps stage
 COPY --from=deps /app/node_modules ./node_modules
 
-# Copy application code
-COPY . .
+# Copy application code from potpie-ui subdirectory
+COPY potpie-ui/ .
 
 # Set environment variables
 ENV NODE_ENV=development
@@ -36,6 +36,11 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 # Expose port
 EXPOSE 3000
+
+# Copy and configure startup script that checks for required directories
+COPY --chmod=755 scripts/frontend-entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
 
 # Start development server with hot reload
 CMD ["pnpm", "run", "dev"]

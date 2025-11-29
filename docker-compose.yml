@@ -164,8 +164,8 @@ services:
 
   frontend:
     build:
-      context: ./potpie-ui
-      dockerfile: ../Dockerfile.frontend
+      context: .
+      dockerfile: Dockerfile.frontend
     container_name: potpie_frontend
     environment:
       # API URLs (use localhost since browser accesses these directly)
