@@ -186,6 +186,24 @@ CODE_PROVIDER_BASE_URL=/app/local-repos/your-repo
 
 ## Troubleshooting
 
+### Frontend Error: "ENOENT: no such file or directory, scandir '/app/app'"
+
+This error means the `potpie-ui` git submodule is not initialized. The frontend needs the submodule content to run properly.
+
+**Fix:**
+```bash
+# Initialize the submodule
+git submodule update --init --recursive
+
+# Rebuild and restart the frontend
+docker compose up -d --build frontend
+```
+
+**Prevention:** Always clone with `--recurse-submodules`:
+```bash
+git clone --recurse-submodules https://github.com/ZikaZaki/potpie.git
+```
+
 ### Services Not Starting
 
 Check if all services are healthy:

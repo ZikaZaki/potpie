@@ -37,5 +37,46 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # Expose port
 EXPOSE 3000
 
+# Create startup script that checks for required directories
+RUN echo '#!/bin/sh' > /entrypoint.sh && \
+    echo 'set -e' >> /entrypoint.sh && \
+    echo '' >> /entrypoint.sh && \
+    echo '# Check if the app directory exists (indicates submodule was initialized)' >> /entrypoint.sh && \
+    echo 'if [ ! -d "/app/app" ]; then' >> /entrypoint.sh && \
+    echo '    echo ""' >> /entrypoint.sh && \
+    echo '    echo "============================================================"' >> /entrypoint.sh && \
+    echo '    echo "ERROR: The potpie-ui submodule is not initialized!"' >> /entrypoint.sh && \
+    echo '    echo "============================================================"' >> /entrypoint.sh && \
+    echo '    echo ""' >> /entrypoint.sh && \
+    echo '    echo "The /app/app directory is missing. This usually means the"' >> /entrypoint.sh && \
+    echo '    echo "potpie-ui git submodule was not cloned properly."' >> /entrypoint.sh && \
+    echo '    echo ""' >> /entrypoint.sh && \
+    echo '    echo "To fix this, run the following commands from the potpie root:"' >> /entrypoint.sh && \
+    echo '    echo ""' >> /entrypoint.sh && \
+    echo '    echo "    git submodule update --init --recursive"' >> /entrypoint.sh && \
+    echo '    echo ""' >> /entrypoint.sh && \
+    echo '    echo "Then restart the container:"' >> /entrypoint.sh && \
+    echo '    echo ""' >> /entrypoint.sh && \
+    echo '    echo "    docker compose restart frontend"' >> /entrypoint.sh && \
+    echo '    echo ""' >> /entrypoint.sh && \
+    echo '    echo "============================================================"' >> /entrypoint.sh && \
+    echo '    echo ""' >> /entrypoint.sh && \
+    echo '    exit 1' >> /entrypoint.sh && \
+    echo 'fi' >> /entrypoint.sh && \
+    echo '' >> /entrypoint.sh && \
+    echo '# Check if package.json exists' >> /entrypoint.sh && \
+    echo 'if [ ! -f "/app/package.json" ]; then' >> /entrypoint.sh && \
+    echo '    echo ""' >> /entrypoint.sh && \
+    echo '    echo "ERROR: package.json not found in /app"' >> /entrypoint.sh && \
+    echo '    echo "The potpie-ui directory may be empty or corrupted."' >> /entrypoint.sh && \
+    echo '    echo ""' >> /entrypoint.sh && \
+    echo '    exit 1' >> /entrypoint.sh && \
+    echo 'fi' >> /entrypoint.sh && \
+    echo '' >> /entrypoint.sh && \
+    echo 'exec "$@"' >> /entrypoint.sh && \
+    chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+
 # Start development server with hot reload
 CMD ["pnpm", "run", "dev"]
